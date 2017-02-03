@@ -26,17 +26,19 @@ instance = ((0,0,0,0,9,4,0,3,0),
             (9,0,0,0,6,5,0,0,0),
             (0,4,0,9,7,0,0,0,0))
 
-instanceCnst = [ If(instance[i][j] == 0,
-		    True,
-	    	    m[i][j] == instance[i][j])
-  	   	 for i in range(9) for j in range(9) ]
+"""
+(non-empty cell value) => (randomly generated variable valuations should match instance's non-empty values)
+"""
+instanceCnst = [ Implies(instance[i][j] != 0,
+                         m[i][j] == instance[i][j])
+                 for i in range(9) for j in range(9) ]
 
 s = Solver();
 s.add(constraint + instanceCnst);
 if s.check() == sat:
-    solved = s.model()
-    r = [[ solved.evaluate(m[i][j]) for j in range(9) ]
+    genInstance = s.model()     # Generated instance of sudoku
+    genMatrix = [[ genInstance.evaluate(m[i][j]) for j in range(9) ]
           for i in range(9) ]
-    print_matrix(r)
+    print_matrix(genMatrix)
 else:
-    print "failed to solve"
+    print "Failed to solve!"
