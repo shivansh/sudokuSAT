@@ -38,7 +38,7 @@ s.add(constraint + instanceCnst);
 if s.check() == sat:
     genInstance = s.model()     # Generated instance of sudoku
     genMatrix = [[ genInstance.evaluate(m[i][j]) for j in range(9) ]
-          for i in range(9) ]
+                                                 for i in range(9) ]
     print_matrix(genMatrix)
 else:
     print "Failed to solve!"
