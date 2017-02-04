@@ -1,5 +1,6 @@
 from z3 import *
 
+# Input variable matrix
 m = [[ Int("x_%s_%s" % (i+1, j+1))
        for j in range(9)] for i in range(9) ]
 
