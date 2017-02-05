@@ -32,27 +32,21 @@ genMatrix = [[4,9,1,6,7,3,2,5,8],
 # genMatrix will be manipulated, save it in refMat
 refMat = [row[:] for row in genMatrix]
 
-instanceCnst = [ Implies(genMatrix[i][j] != '@',
-                         m[i][j] == genMatrix[i][j])
+# TODO Fix this constraint
+instanceCnst = [ Exists( [i,j],
+                        And(genMatrix[i][j] != '@', genMatrix[i][j] != m[i][j]) )
                  for i in range(9) for j in range(9) ]
 
 s = Solver();
 s.add(constraint + instanceCnst)
-while True:
-    # Select random i, j for removal and check if unique solution exists
-    i = randint(0,8)
-    j = randint(0,8)
-    if genMatrix[i][j] != '@':
-        genMatrix[i][j] = '@'
-        if s.check() == sat:
-            model = s.model()
-            genSoln = [[ model.evaluate(m[p][q]) for q in range(9) ]
-                                                 for p in range(9) ]
-            # If generated soln != ref matrix, no more unique soln are possible
-            if genSoln != refMat:
-                print "No more unique solution exist!"
-                break
+for i in range(9):
+    for j in range(9):
+        print 'Iteration %s %s' % (i, j)
+        if genMatrix[i][j] != '@':
+            genMatrix[i][j] = '@'
+            if s.check() == sat:
+                # Debug info
+                print 'Cannot remove %s, %s' % (i, j)
+                genMatrix[i][j] = refMat[i][j]
 
-# Fill back the value at index (i,j)
-genMatrix[i][j] = refMat[i][j]
 print_matrix(genMatrix)
