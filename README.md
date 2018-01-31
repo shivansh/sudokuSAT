@@ -10,8 +10,13 @@ export PYTHONPATH=${z3_location}/build/python
 Ideally, the python scripts should be run inside `build/python` under the local z3 installation directory. However, the directory `build/python/z3` can be symlinked to the project root and all the python scripts can then be invoked where they are located.
 
 All the above instructions are encapsulated in [`setup.sh`](setup.sh), and the initial setup can be done via `./setup.sh`.
+**NOTE:** Update the location variables used in the script before proceeding to run it.
+
+## Running
+[`pattern.py`](pattern.py) contains encoding for sudoku solving patterns (WIP), and running it should generate an incompletely solved sudoku puzzle with a few fixed and rest pencilled entries.
 
 ----
+### _Everything below this point was written a year back and may no longer be valid._
 
 ## Grammar definitions
 The grammar used is defined in [grammar.py](grammar.py).
