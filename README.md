@@ -6,6 +6,11 @@ Following environment variables are to be exported before running z3py python sc
 export LD_LIBRARY_PATH=${z3_location}/build
 export PYTHONPATH=${z3_location}/build/python
 ```
+
+Ideally, the python scripts should be run inside `build/python` under the local z3 installation directory. However, the directory `build/python/z3` can be symlinked to the project root and all the python scripts can then be invoked where they are located.
+
+All the above instructions are encapsulated in [`setup.sh`](setup.sh), and the initial setup can be done via `./setup.sh`.
+
 ----
 
 ## Grammar definitions

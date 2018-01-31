@@ -18,7 +18,8 @@ instance = ((0,0,0,0,9,4,0,3,0),
             (0,4,0,9,7,0,0,0,0))
 
 """
-(non-empty cell value) => (randomly generated variable valuations should match instance's non-empty values)
+non-empty cell value => randomly generated variable valuations
+                        should match instance's non-empty values
 """
 instanceCnst = [ Implies(instance[i][j] != 0,
                          m[i][j] == instance[i][j])
