@@ -1,3 +1,4 @@
+from z3 import *
 import constraint as cnst
 from random import randint
 
@@ -19,7 +20,7 @@ refMat = [row[:] for row in genMatrix]
 
 # TODO Fix this constraint
 instanceCnst = [ Exists( [i,j],
-                        And(genMatrix[i][j] != '@', genMatrix[i][j] != m[i][j]) )
+                        And(genMatrix[i][j] != 0, genMatrix[i][j] != refMat[i][j]) )
                  for i in range(9) for j in range(9) ]
 
 s = Solver();
@@ -27,8 +28,8 @@ s.add(constraint + instanceCnst)
 for i in range(9):
     for j in range(9):
         print 'Iteration %s %s' % (i, j)
-        if genMatrix[i][j] != '@':
-            genMatrix[i][j] = '@'
+        if genMatrix[i][j] != 0:
+            genMatrix[i][j] = 0
             if s.check() == sat:
                 # Debug info
                 print 'Cannot remove %s, %s' % (i, j)
